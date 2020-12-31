@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import "./styles.css";
+import { InputTodo } from './component/inputTodo'
+import { IncompleteTodos } from './component/IncompleteTodos'
 
 export const App = () => {
   const[todoText, setTodoText] = useState('');//入力した場合を変数に入れる
@@ -44,26 +46,8 @@ export const App = () => {
   //
   return (
     <>
-     <div className="input-area">
-       <input placeholder="TODOを入力" value={todoText} onChange={onChangeTodoText} />
-       <button onClick={onClickedAdd}>追加</button>
-     </div>
-     <div className="incomplete-area">
-       <p className="title">未完了のTODO</p>
-       <ul>
-        {incompleteTodos.map((todo, index) => {
-          return (
-            //keyは仮想DOMは変更後とその差分だけ表示しているので何番目かを把握するためにかく
-            <div key={todo} className="list-row">
-              <li>{todo}</li>
-              <button　onClick={() => onClickComplete(index)}>完了</button>
-              {/*アロー関数で処理しないと、リロードの際にindex分（個数分）処理が発火する*/}
-              <button　onClick={() => onClickDelete(index)}>削除</button>
-            </div>
-          );
-        })}
-       </ul>
-     </div>
+     <InputTodo todoText={todoText} onChange={onChangeTodoText} onClick={onClickedAdd}/>
+     <IncompleteTodos todos={incompleteTodos} onClickComplete={onClickComplete} onClickDelete={onClickDelete}/>
      <div className="complete-area">
       <p className="title">完了のTODO</p>
         <ul>
