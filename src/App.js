@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import "./styles.css";
-import { InputTodo } from './component/inputTodo'
-import { IncompleteTodos } from './component/IncompleteTodos'
+import { InputTodo } from './component/inputTodo';
+import { IncompleteTodos } from './component/IncompleteTodos';
+import { CompleteTodos } from './component/CompleteTodos'
 
 export const App = () => {
   const[todoText, setTodoText] = useState('');//入力した場合を変数に入れる
@@ -48,19 +49,7 @@ export const App = () => {
     <>
      <InputTodo todoText={todoText} onChange={onChangeTodoText} onClick={onClickedAdd}/>
      <IncompleteTodos todos={incompleteTodos} onClickComplete={onClickComplete} onClickDelete={onClickDelete}/>
-     <div className="complete-area">
-      <p className="title">完了のTODO</p>
-        <ul>
-          {completeTodos.map((todo, index) => {
-            return(
-              <div key={todo} className="list-row">
-                <li>{todo}</li>
-                <button onClick={() => onClickBack(index)}>戻す</button>
-              </div>
-            );
-          })}
-        </ul>
-     </div>
+     <CompleteTodos todos={completeTodos} onClickBack={onClickBack}/>
     </>
   );
 }
